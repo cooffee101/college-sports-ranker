@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Top 25 – CBB Ranker</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏀</text></svg>">
+<style>
+:root{--bg:#f4f1ea;--card:#fff;--ink:#16202a;--mute:#6b7682;--line:#d9d4c8;--acc:#b3202a;--hero:#16202a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151b;--card:#1b232c;--ink:#eef1f4;--mute:#93a0ad;--line:#2e3a46;--acc:#ff5a64;--hero:#0a0e13}}
+:root[data-theme="dark"]{--bg:#10151b;--card:#1b232c;--ink:#eef1f4;--mute:#93a0ad;--line:#2e3a46;--acc:#ff5a64;--hero:#0a0e13}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:3px solid var(--acc)}
+h1{margin:0;font:800 26px/1 Impact,"Arial Narrow",sans-serif;letter-spacing:1px;text-transform:uppercase}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:6px 12px}
+main{display:grid;grid-template-columns:300px 1fr;gap:18px;padding:18px 20px;max-width:1400px;margin:auto}
+aside{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;align-self:start;position:sticky;top:10px;max-height:calc(100vh - 20px);display:flex;flex-direction:column}
+select{width:100%;font:inherit;padding:8px;border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-bottom:8px}
+#pool{overflow-y:auto;display:flex;flex-direction:column;gap:6px;min-height:80px}
+.hint{font-size:12px;color:var(--mute);margin:0 0 8px}
+.team{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);cursor:grab}
+.team.sel{outline:2px solid var(--acc)}
+.badge{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 11px system-ui;text-shadow:0 1px 1px #0006}
+.nm{flex:1;font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rec{font-size:12px;color:var(--mute);border:1px dashed var(--line);border-radius:10px;padding:1px 7px;cursor:text;white-space:nowrap}
+main.full{grid-template-columns:1fr;max-width:none}main.full aside{display:none}
+section{display:flex;flex-direction:column;gap:12px}
+.slot{position:relative;background:var(--card);border:2px dashed var(--line);border-radius:10px;min-height:74px;display:flex;align-items:center;padding:8px 10px 8px 46px}
+.slot.over{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--card))}
+.num{position:absolute;left:10px;top:50%;transform:translateY(-50%);font:800 24px Impact,sans-serif;color:var(--mute)}
+.slot .team{flex:1;border:0;background:none;padding:0}
+.x{position:absolute;right:6px;top:4px;border:0;background:none;color:var(--mute);padding:0 4px}
+.slot.filled{border-style:solid}
+.slot.filled .num{color:var(--acc)}
+.hero{min-height:190px;padding-left:90px;background:linear-gradient(120deg,var(--hero),#2b3a4a);color:#fff;border-color:var(--acc)}
+.hero .num{font-size:90px;left:22px;color:var(--acc)!important}
+.hero .nm{font:800 clamp(28px,5vw,56px)/1 Impact,"Arial Narrow",sans-serif;text-transform:uppercase;white-space:normal}
+.hero .badge{width:70px;height:70px;font-size:20px}.hero .rec{color:#ddd;font-size:16px}
+.logo{flex:none;width:30px;height:30px;object-fit:contain;cursor:pointer}
+.rows .logo{width:44px;height:44px}.row4 .logo{width:64px;height:64px}.hero .logo{width:140px;height:140px}
+.hero:not(.filled){color:var(--mute)}
+.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.rows{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.row4 .slot{min-height:110px}.row4 .num{font-size:30px}
+.rows .slot{padding-left:38px}.rows .num{font-size:20px;left:8px}
+.rows .badge,.row4 .badge{width:26px;height:26px}
+.rows .team,.row4 .team{flex-wrap:wrap}
+@media(max-width:1000px){.rows{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){main{grid-template-columns:1fr}aside{position:static;max-height:360px}.row4{grid-template-columns:repeat(2,1fr)}.rows{grid-template-columns:repeat(2,1fr)}.hero{padding-left:70px}.hero .num{font-size:60px}}
+</style><style id="fit">
+#pool .nm{white-space:normal;overflow:visible;text-overflow:clip}
+.slot .nm{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.15}
+.slot .team{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"lg nm" "lg rc";column-gap:10px;row-gap:1px;align-items:center;flex:1;min-width:0}
+.slot .team>:first-child{grid-area:lg}.slot .nm{grid-area:nm}.slot .rec{grid-area:rc;justify-self:start}
+.slot .num{position:static;transform:none}
+.slot{gap:8px;padding:6px 18px 6px 10px}
+@media(min-width:1000px) and (min-height:560px){
+ html,body{height:100%;overflow:hidden}
+ header{padding:8px 16px;flex-wrap:nowrap;gap:12px}h1{font-size:22px;white-space:nowrap}header button{padding:4px 10px}
+ main{height:calc(100vh - 56px);padding:10px 14px;gap:12px;max-width:none;align-items:stretch;overflow:hidden}
+ aside{position:static;max-height:none;height:100%;min-height:0}
+ #pool{flex:1;min-height:0}
+ section{height:100%;min-height:0;display:grid;grid-template-rows:1.5fr 1.1fr 4fr;gap:10px}
+ section>div{min-height:0}
+ .row4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+ .rows{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);gap:8px}
+ .slot,.row4 .slot,.rows .slot,.hero{min-height:0;height:100%}
+ .rows .slot,.row4 .slot{padding-left:10px}
+ .hero{padding-left:24px;gap:20px}
+ .hero .num{position:static;transform:none;font-size:clamp(56px,11vh,100px)}
+ .hero .logo{width:clamp(90px,15vh,150px);height:clamp(90px,15vh,150px)}
+ .hero .nm{font-size:clamp(26px,4.6vh,48px);line-height:1.05}.hero .rec{font-size:clamp(14px,1.8vh,18px)}
+ .row4 .num{font-size:clamp(28px,4.2vh,40px)}
+ .row4 .logo{width:clamp(52px,7vh,72px);height:clamp(52px,7vh,72px)}
+ .row4 .nm{font-size:clamp(15px,1.9vh,20px)}.row4 .rec{font-size:clamp(11px,1.3vh,14px)}
+ .rows .num{font-size:clamp(20px,2.8vh,28px)}
+ .rows .logo{width:clamp(38px,5vh,52px);height:clamp(38px,5vh,52px)}
+ .rows .nm{font-size:clamp(13px,1.6vh,16px)}.rows .rec{font-size:clamp(11px,1.25vh,13px)}
+}
+#gm{width:min(440px,92vw);background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+#gm::backdrop{background:#0008}
+#gml{max-height:62vh;overflow-y:auto;padding-right:2px}
+#gm h3{margin:0 0 8px;font-size:18px}
+.g{display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:6px 10px;margin-bottom:4px;border-radius:7px;border:1px solid var(--line);font-size:14px}
+.g.w{background:rgba(34,170,85,.25);border-color:rgba(34,170,85,.7)}
+.g.l{background:rgba(225,50,60,.25);border-color:rgba(225,50,60,.7)}
+.g.u{opacity:.65}.g b{white-space:nowrap}.g .wk{color:var(--mute);font-size:12px}
+.rec{cursor:pointer}
+#home{font:inherit;color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:6px;padding:4px 10px;white-space:nowrap}
+#po{display:none;padding:12px 18px}
+body.po main{display:none}body.po #po{display:flex;flex-direction:column}
+body.po #tog{display:none}
+.pob{margin:0 0 8px;font-size:13px;color:var(--mute)}
+.pocols{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;flex:1;min-height:0}
+.pcol{display:flex;flex-direction:column;min-height:0}.pcol h4{margin:0 0 6px;font:800 15px Impact,"Arial Narrow",sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--acc)}
+.pcb{flex:1;display:flex;flex-direction:column;justify-content:space-around;min-height:0}
+.pm{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:5px;display:flex;flex-direction:column;gap:4px}
+.pt{display:grid;grid-template-columns:34px 44px minmax(0,1fr) auto;align-items:center;gap:8px;padding:4px 8px;border-radius:7px;background:var(--bg);min-height:50px}
+.pt .sd{font:800 20px Impact,sans-serif;color:var(--acc);text-align:center}
+.pt .logo{width:38px;height:38px}
+.pt .nm{white-space:normal;overflow:visible;font-weight:700;line-height:1.15}
+.pt .rc{font-size:12px;color:var(--mute)}
+.pt .tg{font-size:10px;font-weight:700;color:#fff;background:var(--acc);border-radius:8px;padding:1px 6px;margin-left:6px;white-space:nowrap}
+.pt.tbd{color:var(--mute);font-size:13px;grid-template-columns:1fr;justify-items:center}
+.pt.empty{opacity:.55}
+.pbye{font-size:11px;color:var(--mute);text-align:center;margin-top:2px}
+.pout{margin-top:6px;font-size:13px;color:var(--mute)}
+@media(min-width:1000px) and (min-height:560px){#po{height:calc(100vh - 56px);overflow:hidden}}
+</style>
+</head><body>
+<header><div style="display:flex;gap:12px;align-items:center"><a id="home" href="./">⌂ Home</a><h1>🏀 My Top 25</h1></div><span><span id="asof" class="hint"></span> <span id="lmsg" class="hint"></span> <button id="tog">◧ Hide teams</button> <button id="addl">Add logos</button> <button id="exp">Export image</button> <button id="bak">Backup</button> <button id="rst">Restore</button><input type="file" id="rf" accept=".json,application/json" hidden> <input type="file" id="many" accept="image/*" multiple hidden><input type="file" id="one" accept="image/*" hidden> <button id="refresh">⟳ Refresh records</button> <button id="reset">Clear all</button></span></header>
+<dialog id="gm"><div id="gmh"></div><div id="gml"></div><p style="margin:10px 0 0"><button id="gme">Edit record</button> <button id="gmc">Close</button></p></dialog>
+<main>
+<aside><select id="conf"></select>
+<p class="hint">Drag teams to a slot (or tap a team, then tap a slot). Tap a record to edit it.</p>
+<div id="pool"></div></aside>
+<section><div id="s1"></div><div class="row4" id="s2"></div><div class="rows" id="s3"></div></section>
+</main>
+<script>
+let C={};
+const SEED={};
+const GAMES={};
+const base=Object.assign({},SEED);
+let rank=Array(25).fill(null),rec=Object.assign({},SEED),sel=null;
+try{const s=JSON.parse(localStorage.getItem("cbb27")||"{}");if(s.rank)rank=s.rank}catch(e){}
+try{Object.assign(rec,JSON.parse(localStorage.getItem("cbb27r")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("cbb27",JSON.stringify({rank}));localStorage.setItem("cbb27r",JSON.stringify(Object.fromEntries(Object.entries(rec).filter(([k,v])=>base[k]!==v))))}catch(e){}};
+const $=id=>document.getElementById(id);
+let logos={},fileLogos={},pickFor=null;try{logos=JSON.parse(localStorage.getItem("cbb27l")||"{}")}catch(e){}
+const norm=s=>s.toLowerCase().replace(/[^a-z0-9]/g,"");
+function shrink(f){return new Promise(r=>{const u=URL.createObjectURL(f),i=new Image();i.onload=()=>{const k=Math.min(1,160/Math.max(i.width,i.height,1)),c=document.createElement("canvas");c.width=Math.max(1,i.width*k|0);c.height=Math.max(1,i.height*k|0);c.getContext("2d").drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);r(c.toDataURL("image/png"))};i.onerror=()=>r(null);i.src=u})}
+function saveL(){try{localStorage.setItem("cbb27l",JSON.stringify(logos));return true}catch(e){$("lmsg").textContent="Browser storage is full";return false}}
+let all=[];
+const conf=$("conf");
+function buildConf(){const cur=conf.value;conf.innerHTML='<option value="*">All teams ('+all.length+')</option>'+Object.keys(C).map(k=>`<option>${k} (${C[k].length})</option>`).join("");if([...conf.options].some(o=>o.value===cur))conf.value=cur}
+buildConf();
+conf.onchange=draw;
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function hue(n){let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%360;return h}
+function ab(n){const w=n.replace(/[()]/g,"").split(" ");return(w.length>1?w[0][0]+w[1][0]:n.slice(0,3)).toUpperCase()}
+let COL={};
+function jersey(n){const [a,b]=COL[n]||["#667788","#cccccc"],P="M30 8L40 8C42 20 58 20 60 8L70 8C72 22 80 30 82 36L82 92L18 92L18 36C20 30 28 22 30 8Z";
+return `<svg class="logo" viewBox="0 0 100 100" data-l="${esc(n)}" role="img" aria-label="${esc(n)} jersey"><title>${esc(n)}</title><defs><clipPath id="jc"><path d="${P}"/></clipPath></defs><path d="${P}" fill="${a}"/><g clip-path="url(#jc)"><rect x="18" y="82" width="64" height="10" fill="${b}"/><path d="M25 42V82M75 42V82" stroke="${b}" stroke-width="3" fill="none"/></g><path d="M40 8C42 20 58 20 60 8M30 8C28 22 20 30 18 36M70 8C72 22 80 30 82 36" fill="none" stroke="${b}" stroke-width="4" stroke-linecap="round"/><path d="${P}" fill="none" stroke="#0008" stroke-width="2" stroke-linejoin="round"/></svg>`}
+function team(n,s){const L=logos[n]||fileLogos[n];return `<div class="team${sel===n?" sel":""}" draggable="true" data-t="${esc(n)}">${L?`<img class="logo" src="${L}" alt="${esc(n)}" title="${esc(n)}" data-l="${esc(n)}">`:`${jersey(n)}`}<span class="nm">${esc(n)}</span><span class="rec" data-r="${esc(n)}" title="Click to edit record">${esc(rec[n]||"add record")}</span></div>`}
+function slot(i){const n=rank[i];return `<div class="slot${i==0?" hero":""}${n?" filled":""}" data-i="${i}"><span class="num">${i+1}</span>${n?team(n,1)+'<button class="x" data-x="'+i+'">✕</button>':'<span style="color:var(--mute)">'+(i==0?"Drop your No. 1 team here":"Drop team")+'</span>'}</div>`}
+function draw(){
+ const ranked=new Set(rank),v=conf.value;
+ const list=v==="*"?all:(C[v.replace(/ \(\d+\)$/,"")]||[]);
+ $("pool").innerHTML=list.filter(t=>!ranked.has(t)).map(team).join("")||'<p class="hint">Everyone in this conference is ranked.</p>';
+ $("s1").innerHTML=slot(0);
+ $("s2").innerHTML=[1,2,3,4].map(slot).join("");
+ $("s3").innerHTML=Array.from({length:20},(_,k)=>slot(k+5)).join("");
+ save();
+}
+document.addEventListener("dragstart",e=>{const t=e.target.closest(".team");if(!t)return;const s=t.closest(".slot");e.dataTransfer.setData("text/plain",JSON.stringify({t:t.dataset.t,f:s?+s.dataset.i:-1}))});
+document.addEventListener("dragover",e=>{if(e.target.closest(".slot,#pool")){e.preventDefault();document.querySelectorAll(".over").forEach(x=>x.classList.remove("over"));e.target.closest(".slot")?.classList.add("over")}});
+document.addEventListener("dragend",()=>document.querySelectorAll(".over").forEach(x=>x.classList.remove("over")));
+document.addEventListener("drop",e=>{
+ let d;try{d=JSON.parse(e.dataTransfer.getData("text/plain"))}catch(x){return}
+ const s=e.target.closest(".slot");
+ if(s){e.preventDefault();place(+s.dataset.i,d.t,d.f)}
+ else if(e.target.closest("#pool")){e.preventDefault();if(d.f>=0)rank[d.f]=null;draw()}
+});
+function place(i,t,from){const old=rank[i];if(from>=0)rank[from]=old;rank[i]=t;sel=null;draw()}
+document.addEventListener("click",e=>{
+ const lg=e.target.closest("[data-l]");if(lg){e.stopPropagation();pickFor=lg.dataset.l;$("one").click();return}
+ const r=e.target.closest("[data-r]");
+ if(r){e.stopPropagation();openGames(r.dataset.r);return}
+ const x=e.target.closest("[data-x]");if(x){rank[+x.dataset.x]=null;draw();return}
+ const s=e.target.closest(".slot");
+ if(s&&sel){place(+s.dataset.i,sel,rank.indexOf(sel));return}
+ const t=e.target.closest("#pool .team");
+ if(t){sel=sel===t.dataset.t?null:t.dataset.t;draw()}
+});
+let edits={};try{edits=JSON.parse(localStorage.getItem("cbb27r")||"{}")}catch(e){}
+async function refresh(manual){const m=$("asof");if(manual)m.textContent="Refreshing…";
+ try{const r=await fetch("cbb-data.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);const d=await r.json();
+  C=d.confs;all=Object.values(C).flat();COL=d.colors||{};Object.assign(GAMES,d.games||{});
+  for(const k in d.rec){base[k]=d.rec[k];if(!(k in edits))rec[k]=d.rec[k]}
+  for(const t of all)if(!(t in base)){base[t]="0-0";if(!(t in edits))rec[t]="0-0"}
+  buildConf();draw();m.textContent="Records through "+d.asOf+(manual?" ✓":"")}
+ catch(e){m.textContent=manual?"Couldn't load cbb-data.json ("+(e.message||e)+")":""}}
+$("refresh").onclick=()=>refresh(true);
+refresh(false);
+fetch("cbb-logos.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():{}).then(j=>{fileLogos=j||{};draw()}).catch(()=>{});
+$("addl").onclick=()=>$("many").click();
+const NICK={"Connecticut":"UConn","Pitt":"Pittsburgh","UNC":"North Carolina","Mississippi":"Ole Miss","Miami Ohio":"Miami (OH)","Miami RedHawks":"Miami (OH)","Miami FL":"Miami","Miami Florida":"Miami","Cal":"California","Louisiana State":"LSU","UCSB":"UC Santa Barbara","FAU":"Florida Atlantic","FGCU":"Florida Gulf Coast","Hawaii":"Hawai'i","Massachusetts":"UMass","Texas AM":"Texas A&M","TAMU":"Texas A&M","North Carolina State":"NC State"};
+function keys(){const k=[],known=new Set(all);for(const t of all){k.push([norm(t),t]);if(/ State$/.test(t))k.push([norm(t.replace(/ State$/," St")),t]);if(t.startsWith("St. "))k.push([norm("Saint "+t.slice(4)),t]);if(t.startsWith("Saint "))k.push([norm("St. "+t.slice(6)),t])}for(const a in NICK)if(known.has(NICK[a]))k.push([norm(a),NICK[a]]);return k}
+$("many").onchange=async e=>{const KEYS=keys();let ok=0,miss=[];for(const f of e.target.files){const b=norm(f.name.replace(/\.[^.]+$/,""));const t=(KEYS.filter(k=>b.startsWith(k[0])).sort((a,c)=>c[0].length-a[0].length)[0]||[])[1];const d=t&&await shrink(f);if(d){logos[t]=d;ok++}else miss.push(f.name)}
+ saveL();$("lmsg").textContent=ok+" logos added"+(miss.length?", "+miss.length+" unmatched (name files like \"Ohio State.png\")":"");e.target.value="";draw()};
+$("one").onchange=async e=>{const f=e.target.files[0];if(f&&pickFor){const d=await shrink(f);if(d){logos[pickFor]=d;saveL()}}e.target.value="";draw()};
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+function loadImg(n){return new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=logos[n]||fileLogos[n]||("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(jersey(n).replace("<svg ",'<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" ')))})}
+async function save2(name,data){try{const b=data instanceof Blob?data:new Blob([data],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);$("lmsg").textContent="Saved "+name}catch(e){$("lmsg").textContent="Save failed"}}
+$("exp").onclick=async()=>{const W=1200,P=24,G=12,c=document.createElement("canvas");c.width=W;c.height=850;const x=c.getContext("2d");
+ x.fillStyle="#f4f1ea";x.fillRect(0,0,W,850);x.textBaseline="middle";x.textAlign="left";
+ x.fillStyle="#16202a";x.font="800 40px Impact,'Arial Narrow',sans-serif";x.fillText("MY TOP 25",P,40);x.fillStyle="#b3202a";x.fillRect(P,68,W-2*P,4);
+ const im=await Promise.all(rank.map(n=>n?loadImg(n):null));
+ function box(i,bx,by,w,h,ls,fs,ns,dk){const n=rank[i];x.setLineDash(n?[]:[6,5]);x.lineWidth=2;x.fillStyle=dk&&n?"#16202a":"#fff";x.strokeStyle=n&&dk?"#b3202a":"#d9d4c8";x.beginPath();x.roundRect(bx,by,w,h,10);x.fill();x.stroke();x.setLineDash([]);
+  x.fillStyle=n?"#b3202a":"#9aa3ab";x.font=`800 ${ns}px Impact,sans-serif`;x.fillText(String(i+1),bx+14,by+h/2);if(!n)return;
+  const lx=bx+14+x.measureText(String(i+1)).width+12,g=im[i];if(g){const k=Math.min(ls/g.width,ls/g.height);x.drawImage(g,lx+(ls-g.width*k)/2,by+(h-g.height*k)/2,g.width*k,g.height*k)}
+  const tx=lx+ls+12,mw=bx+w-tx-10;let s=fs;do{x.font=`700 ${s}px system-ui,sans-serif`;s-=1}while(x.measureText(n).width>mw&&s>9);
+  x.fillStyle=dk?"#fff":"#16202a";x.fillText(n,tx,by+h/2-(rec[n]?fs*0.3:0));
+  if(rec[n]){x.font=`500 ${Math.round(fs*0.6)}px system-ui,sans-serif`;x.fillStyle=dk?"#c9d1d9":"#6b7682";x.fillText(rec[n],tx,by+h/2+fs*0.7)}}
+ box(0,P,88,W-2*P,200,150,48,110,true);
+ const w4=(W-2*P-3*G)/4;for(let i=1;i<5;i++)box(i,P+(i-1)*(w4+G),300,w4,120,64,22,56,false);
+ const w5=(W-2*P-40)/5;for(let i=5;i<25;i++){const r=((i-5)/5)|0,k=(i-5)%5;box(i,P+k*(w5+10),432+r*98,w5,88,46,17,32,false)}
+ c.toBlob(b=>b?save2("my-cbb-top-25.png",b):($("lmsg").textContent="Export failed"),"image/png")};
+$("bak").onclick=()=>save2("cbb-top25-backup.json",JSON.stringify({rank,edits:Object.fromEntries(Object.entries(rec).filter(([k,v])=>base[k]!==v)),logos}));
+$("rst").onclick=()=>$("rf").click();
+$("rf").onchange=async e=>{try{const j=JSON.parse(await e.target.files[0].text());if(Array.isArray(j.rank))rank=j.rank.slice(0,25);if(j.logos)Object.assign(logos,j.logos);if(j.edits){edits=j.edits;Object.assign(rec,edits)}saveL();$("lmsg").textContent="Backup restored";draw()}catch(x){$("lmsg").textContent="Couldn't read that file"}e.target.value=""};
+function setFull(f){document.querySelector("main").classList.toggle("full",f);$("tog").textContent=f?"◨ Show teams":"◧ Hide teams";try{localStorage.setItem("cbb27p",f?"1":"")}catch(e){}}
+$("tog").onclick=()=>setFull(!document.querySelector("main").classList.contains("full"));
+try{if(localStorage.getItem("cbb27p"))setFull(true)}catch(e){}
+let gmTeam=null;
+function openGames(n){gmTeam=n;const gs=GAMES[n]||[];
+ $("gmh").innerHTML="<h3>"+esc(n)+" <span class=\"hint\">"+esc(rec[n]||"")+"</span></h3>";
+ $("gml").innerHTML=gs.length?gs.map(g=>{const[wk,o,s,pf,pa]=g,done=pf!=null,c=!done?"u":pf>pa?"w":pf<pa?"l":"";
+  return `<div class="g ${c}"><span class="wk">${wk}</span><span>${s==="A"?"at":s==="N"?"vs (neutral)":"vs"} ${esc(o)}</span><b>${done?(pf>pa?"W ":pf<pa?"L ":"T ")+pf+"-"+pa:"upcoming"}</b></div>`}).join(""):'<p class="hint">No game data for this team.</p>';
+ $("gm").showModal()}
+$("gmc").onclick=()=>$("gm").close();
+$("gm").onclick=e=>{if(e.target.id==="gm")$("gm").close()};
+$("gme").onclick=()=>{const n=gmTeam,v=prompt("Record for "+n+" (e.g. 6-1):",rec[n]||"");if(v!==null){v.trim()?(rec[n]=edits[n]=v.trim()):(delete edits[n],base[n]?rec[n]=base[n]:delete rec[n]);draw();$("gm").close()}};
+$("reset").onclick=()=>{if(confirm("Clear your whole top 25?")){rank=Array(25).fill(null);sel=null;draw()}};
+draw();
+</script></body></html>
