@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Rankings</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<style>
+:root{--bg:#f4f1ea;--card:#fff;--ink:#16202a;--mute:#6b7682;--line:#d9d4c8;--acc:#b3202a;--acc2:#e86a1c}
+@media(prefers-color-scheme:dark){:root{--bg:#10151b;--card:#1b232c;--ink:#eef1f4;--mute:#93a0ad;--line:#2e3a46;--acc:#ff5a64;--acc2:#ff9a52}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+header{text-align:center;padding:28px 16px 8px}
+h1{margin:0;font:800 clamp(34px,5vw,60px)/1 Impact,"Arial Narrow",sans-serif;letter-spacing:2px;text-transform:uppercase}
+header p{margin:8px 0 0;color:var(--mute)}
+main{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px clamp(16px,4vw,64px) 40px;min-height:0}
+.tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;text-decoration:none;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:18px;padding:24px;font:inherit;cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tile:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 12px 30px #0003}
+.tile .ic{font-size:clamp(64px,12vw,150px);line-height:1}
+.tile h2{margin:0;font:800 clamp(28px,4vw,52px)/1 Impact,"Arial Narrow",sans-serif;letter-spacing:1px;text-transform:uppercase}
+.tile p{margin:0;color:var(--mute);max-width:32ch}
+.tile.cbb{border-color:var(--line);opacity:.8}.tile.cbb:hover{border-color:var(--acc2)}
+.pill{position:absolute;top:16px;right:16px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--acc2);color:#fff}
+#note{min-height:24px;text-align:center;color:var(--acc2);font-weight:600;padding-bottom:12px}
+@media(max-width:760px){main{grid-template-columns:1fr}.tile{min-height:220px}}
+</style></head><body>
+<header><h1>My Rankings</h1><p>Pick a sport to get started</p></header>
+<main>
+ <a class="tile" href="cfb.html"><span class="ic">🏈</span><h2>College Football</h2><p>Build your Top 25 and see it as a 12-team playoff</p></a>
+ <button class="tile cbb" id="cbb"><span class="pill">Coming soon</span><span class="ic">🏀</span><h2>College Basketball</h2><p>Your Top 25 builder for hoops is on the way</p></button>
+</main>
+<div id="note"></div>
+<script>document.getElementById("cbb").onclick=()=>{document.getElementById("note").textContent="College Basketball is coming soon."}</script>
+</body></html>
